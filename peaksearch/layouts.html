@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resizable Horizontal Divs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            background: pink; /* remove */
+        }
+				
+				.bar-logo {
+            position: absolute;
+						top: calc( min(1vh, 1vw ) );
+						left: 50vw;
+						transform: translate(-50%, 0%);
+						padding: 0px;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						width: 50px;
+						height: 50px;
+						background: red; /* remove */
+						
+        }
+				
+				.bar-tabs {
+            position: absolute;
+            top: calc( min(1vh, 1vw ) );
+            left: calc( min(1vh, 1vw ) );
+            background: green;
+            color: white;
+            padding: 0px;
+            cursor: pointer;
+						display: flex;
+						flex-direction: column;
+						gap: 5px;
+        }
+				
+				.bar-controls
+				{
+            position: absolute;
+            bottom: calc( min(1vh, 1vw ) );
+            right: calc( min(1vh, 1vw ) );
+            background: yellow;
+            padding: 0px;
+            cursor: pointer;
+						display: flex;
+						flex-direction: row;
+						gap: 5px;
+        }
+				
+				.float-container-s {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+						background-color: cyan;
+
+        }
+				.float-container-v {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+						display: none;
+        }
+				
+				.float-container-h {
+            display: flex;
+            flex-direction: row;
+            height: 100vh;
+						display: none;
+        }
+
+        .floater-top {
+            text-align: center;
+            padding: 0px;
+						background-color: blue;
+						height: 50vh;
+        }
+
+        .floater-resizer-v {
+            height: 5px;
+            background-color: #888;
+            cursor: ns-resize;
+        }
+
+        .floater-bottom {
+            text-align: center;
+            padding: 0px;
+            flex: 1; /* Takes up remaining space */
+            background-color: #ddd;
+        }
+				
+				.floater-left {
+            text-align: center;
+            padding: 0px;
+						background-color: orange;
+						width: 50vw;
+        }
+
+        .floater-resizer-h {
+            width: 5px;
+            background-color: #888;
+            cursor: ew-resize;
+        }
+
+        .floater-right {
+            text-align: center;
+            padding: 0px;
+            flex: 1; /* Takes up remaining space */
+            background-color: #dd6;
+        }
+				
+				.bar-button {
+					width: 30px;
+					height: 30px;
+					background-color: #123;
+					color: white;
+					border-radius: 10%;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					padding: 0px
+				.bar
+        }
+				
+				.pop-out-toolbar-up
+				{
+            position: absolute;
+						transform: translate(0%, -20px) translate(0%, -50%);
+
+            background: brown;
+            padding: 0px;
+            cursor: pointer;
+						display: none;
+						flex-direction: column;
+						gap: 5px;
+        }
+				
+				.pop-out-toolbar-right
+				{
+            position: absolute;
+						transform: translate(0%, -20px) translate(0%, -50%);
+						
+            background: brown;
+            padding: 0px;
+            cursor: pointer;
+						display: none;
+						flex-direction: row;
+						gap: 5px;
+        }
+				
+				.contents-holder
+				{
+            height: 100%;
+            width: 100%;
+            padding: 0px;
+            display: flex;
+            flex-direction: column;
+						background-color: red;
+						display: none;
+				}
+    </style>
+</head>
+<body onload="window_load()">
+
+    <div class="container">
+				<div class="bar-logo" id="bar-logo">L</div>
+				<div class="bar-tabs" id="bar-tabs">
+							<div class="bar-button" onclick="showTab('e')">e</div>
+							<div class="bar-button" onclick="showTab('m')">m</div>
+							<div class="bar-button" onclick="toggleTab('i')">i</div>
+				</div>
+				<div class="bar-controls" id="bar-controls">
+							<div class="bar-button" onclick="toggleToolbar()">
+								l
+								<div class="pop-out-toolbar-up" id="toolbar-views2">
+									<div class="bar-button" onclick="toggleTab('page_peaks')">s2</div>
+									<div class="bar-button" onclick="toggleTab('page_map')">h2</div>
+									<div class="bar-button" onclick="toggleTab('i')">v2</div>
+								</div>
+							</div>
+							<div class="bar-button" onclick="showTab('page_map')">t</div>
+							<div class="bar-button" onclick="toggleToolbar()">
+								v
+								<div class="pop-out-toolbar-up" id="toolbar-views">
+									<div class="bar-button" onclick="toggleView('s')">s</div>
+									<div class="bar-button" onclick="toggleView('h')">h</div>
+									<div class="bar-button" onclick="toggleView('v')">v</div>
+								</div>
+							</div>
+				</div>
+				
+				<div class="float-container-s" id="float-container-s">
+					<div class="contents-holder" id="contents-map">Map</div>
+					<div class="contents-holder" id="contents-eye">Eye</div>
+					<div class="contents-holder" id="contents-info">Info</div>
+				</div>
+				
+				<div class="float-container-v" id="float-container-v">
+					<div class="floater-top" id="div-dock-top"></div>
+					<div class="floater-resizer-v" id="div-dock-resizer-v"></div>
+					<div class="floater-bottom" id="div-dock-bottom"></div>
+				</div>
+				
+				<div class="float-container-h" id="float-container-h">
+					<div class="floater-left" id="div-dock-left"></div>
+					<div class="floater-resizer-h" id="div-dock-resizer-h"></div>
+					<div class="floater-right" id="div-dock-right"></div>
+				</div>
+				
+    </div>
+
+    <script>
+				var div_float_s = document.getElementById("float-container-s");
+				var div_float_v = document.getElementById("float-container-v");
+				var div_float_h = document.getElementById("float-container-h");
+
+        var resizer_v = document.getElementById("div-dock-resizer-v");
+        var topDiv = document.getElementById("div-dock-top");
+        var bottomDiv = document.getElementById("div-dock-bottom");
+
+        var resizer_h = document.getElementById("div-dock-resizer-h");
+        var leftDiv = document.getElementById("div-dock-left");
+        var rightDiv = document.getElementById("div-dock-right");
+
+        var isResizing_v = false;
+        var isResizing_h = false;
+
+				var setting_view_type = "s"
+				var setting_current_tab = "m"
+				var setting_info_tab = 0
+				
+				var div_map = document.getElementById("contents-map");
+				var div_eye = document.getElementById("contents-eye");
+				var div_info = document.getElementById("contents-info");
+
+				function window_load() {
+        resizer_v.addEventListener("mousedown", function (event) {
+            isResizing_v = true;
+            document.addEventListener("mousemove", resizeDivs);
+            document.addEventListener("mouseup", () => { isResizing_v = false; document.removeEventListener("mousemove", resizeDivs); });
+        });
+
+        resizer_h.addEventListener("mousedown", function (event) {
+            isResizing_h = true;
+            document.addEventListener("mousemove", resizeDivs);
+            document.addEventListener("mouseup", () => { isResizing_h = false; document.removeEventListener("mousemove", resizeDivs); });
+        });
+
+					configureView();
+				}
+
+        function resizeDivs(event) {
+            if (isResizing_v)
+						{
+							var newHeight = event.clientY;
+							topDiv.style.height = `${newHeight}px`;
+							bottomDiv.style.flex = "1"; // Ensures the bottom div fills remaining space
+						}
+						else if(isResizing_h)
+						{
+							var newWidth = event.clientX;
+							leftDiv.style.width = `${newWidth}px`;
+							rightDiv.style.flex = "1"; // Ensures the bottom div fills remaining space
+						}
+        }
+				
+				function toggleToolbar() {
+            var toolbar = event.target.querySelector(".pop-out-toolbar-up");
+            toolbar.style.display = (toolbar.style.display === "none" || toolbar.style.display === "") ? "flex" : "none";
+        }
+				
+				function toggleView(view_type)
+				{
+						setting_view_type = view_type
+						configureView()
+        }
+
+				function showTab(tab)
+				{
+						setting_current_tab = tab
+						configureView()
+        }
+
+				function toggleTab(i)
+				{
+						setting_info_tab = (setting_info_tab == 1) ? 0 : 1;
+						configureView()
+        }
+				
+				function configureView()
+				{
+						div_float_s.style.display = (setting_view_type == "s") ? "flex" : "none";
+						div_float_v.style.display = (setting_view_type == "v") ? "flex" : "none";
+						div_float_h.style.display = (setting_view_type == "h") ? "flex" : "none";
+						div_info.style.display = (setting_info_tab) ? "flex" : "none";
+						
+						if(setting_view_type == "s")
+						{
+								div_float_s.appendChild(div_map)
+								div_float_s.appendChild(div_eye)
+
+								div_map.style.display = (setting_current_tab == "m") ? "flex" : "none";
+								div_eye.style.display = (setting_current_tab == "e") ? "flex" : "none";
+						}
+						else if(setting_view_type == "v")
+						{
+							if(setting_current_tab == "m")
+							{
+								topDiv.appendChild(div_map)
+								bottomDiv.appendChild(div_eye)
+							}
+							else
+							{
+								topDiv.appendChild(div_eye)
+								bottomDiv.appendChild(div_map)
+							}
+							
+							div_map.style.display = "flex"
+							div_eye.style.display = "flex"
+						}
+						else if(setting_view_type == "h")
+						{
+							if(setting_current_tab == "m")
+							{
+								leftDiv.appendChild(div_map)
+								rightDiv.appendChild(div_eye)
+							}
+							else
+							{
+								leftDiv.appendChild(div_eye)
+								rightDiv.appendChild(div_map)
+							}
+							
+							div_map.style.display = "flex"
+							div_eye.style.display = "flex"
+						}
+				}
+
+    </script>
+
+</body>
+</html>
