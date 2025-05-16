@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<title>Peak Search</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
-		<script async type="text/javascript" src="https://www.peakfinder.com/script/peakfinder.1.0.min.js"></script>
-<style>
-body,
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=0"
+    />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+      body,
 button,
 input,
 optgroup,
@@ -156,9 +158,12 @@ footer {
   }
 }
 
-</style>
-</head>
-<body onload="window_load()">
+    </style>
+   
+    <script async type="text/javascript" src="https://www.peakfinder.com/script/peakfinder.1.0.min.js"></script>
+  </head> 
+
+  <body>
     <div class="container">
       <header>
         <img
@@ -191,38 +196,8 @@ footer {
     </div>
 
     <script type="text/javascript">
-  
-  var pfPanel
-  
-  function window_load()
-  {
-     
-  }
-  
-  function pf_confg_panel()
-  {
-    pfPanel.settings.distanceUnit(0) // use imperial (miles, feet) format
-            
-    pfPanel.loadViewpoint(46.53722, 8.12610, 'Finsteraarhorn') // loads a viewpoint
-
-    // animate to view
-    pfPanel.azimut(209.0, 2.0)
-    pfPanel.altitude(1.0, 1.0)
-    pfPanel.fieldofview(45.0, 2.0)
-  }
-  
-  function pf_init()
-  {
-     if (PeakFinder.utils.caniuse()) {
-        pfPanel = new PeakFinder.PanoramaPanel({
-    canvasid: 'pfcanvas', 
-    locale: 'en' // attach to canvas
-  }) 
-  
-  pfPanel.init(function() { pf_confg_panel(); });
-}
-
-window.onload = () => {
+ 
+      window.onload = () => {
 
         if (PeakFinder.utils.caniuse()) {
 
