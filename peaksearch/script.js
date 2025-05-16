@@ -2,7 +2,9 @@
     var mapLat = -33.829357;
 		var mapLng = 150.961761;
     var mapDefaultZoom = 10;
-    
+		var pointFeature;
+    var panel;
+		
 		function showTab(tabId) {
             var tabs = document.getElementsByClassName('tab-content');
             for (var i = 0; i < tabs.length; i++) {
@@ -31,11 +33,13 @@
     }
 
     function add_map_point(lat, lng) {
+			
+			pointFeature = new ol.Feature({
+                geometry: new ol.geom.Point(ol.proj.transform([parseFloat(lng), parseFloat(lat)], 'EPSG:4326', 'EPSG:3857')),
+            })
       var vectorLayer = new ol.layer.Vector({
         source:new ol.source.Vector({
-          features: [new ol.Feature({
-                geometry: new ol.geom.Point(ol.proj.transform([parseFloat(lng), parseFloat(lat)], 'EPSG:4326', 'EPSG:3857')),
-            })]
+          features: [pointFeature]
         }),
         style: new ol.style.Style({
           image: new ol.style.Icon({
@@ -50,13 +54,25 @@
       map.addLayer(vectorLayer); 
     }
 
+function updateMapLocation(lat, lon, name)
+ {
+    var view = map.getView();
+    var newCoords = ol.proj.fromLonLat([lon, lat]); // Convert lat/lon to map projection
+    view.setCenter(newCoords);
+    view.setZoom(12); // Adjust zoom level if needed
+		
+		var newCoords = ol.proj.fromLonLat([lon, lat]); // Convert lat/lon to map projection
+    pointFeature.getGeometry().setCoordinates(newCoords);
+		
+		panel.loadViewpoint(lat, lon, 'Albert River')
+}
 
 function window_load()
 {
 
         if (PeakFinder.utils.caniuse()) {
 
-          let panel = new PeakFinder.PanoramaPanel({
+        panel = new PeakFinder.PanoramaPanel({
             canvasid: 'pfcanvas', 
             locale: 'en'
           }) // attach to canvas
@@ -91,4 +107,48 @@ function window_load()
         else { // !caniuse
         
         }
+				
+				
+						        $("#searchInput").on("input", function() {
+            var query = $(this).val();
+            if (query.length < 3) {
+                $("#autocompleteList").hide();
+                return;
+            }
+
+            $.getJSON(`https://nominatim.openstreetmap.org/search?format=json&q=${query}`, function(data) {
+                var list = $("#autocompleteList");
+                list.empty();
+                if (data.length > 0) {
+                    list.show();
+                    data.forEach(function(item) {
+                        list.append(`<div class="autocomplete-item" data-lat="${item.lat}" data-lon="${item.lon}">${item.display_name}</div>`);
+                    });
+                } else {
+                    list.hide();
+                }
+            });
+        });
+
+        $(document).on("click", ".autocomplete-item", function() {
+            var lat = $(this).data("lat");
+            var lon = $(this).data("lon");
+            $("#latInput").val(lat);
+            $("#lonInput").val(lon);
+            $("#autocompleteList").hide();
+						updateMapLocation(lat, lon)
+        });
+				
 }
+
+				function handleLocationChange() {
+            var lat = document.getElementById("latInput").value;
+            var lon = document.getElementById("lonInput").value;
+
+						updateMapLocation(lat, lon)
+        }
+				
+        function toggleSearch() {
+            var searchBox = document.getElementById("searchBox");
+            searchBox.style.display = searchBox.style.display === "none" ? "block" : "none";
+        }
