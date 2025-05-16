@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Peak Search</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
+		<link rel="stylesheet" href="style.css" />
+		<script async type="text/javascript" src="https://www.peakfinder.com/script/peakfinder.1.0.min.js"></script>
+<style>
+  
+</style>
+</head>
+<body onload="window_load()">
+<div class="content">
+  <canvas id="pfcanvas" oncontextmenu="event.preventDefault()"> </canvas>
+
+  <!-- you can also add an optional div that will be hidden when the PeakFinder modele has been loaded -->
+  <div id="pfcanvasprogress">
+    <div class="spinner" id="spinner">
+    </div>
+  </div>
+</div>
+
+<script>
+  
+  var pfPanel
+  
+  function window_load()
+  {
+     pf_init()
+  }
+  
+  function pf_confg_panel()
+  {
+    pfPanel.settings.distanceUnit(0) // use imperial (miles, feet) format
+            
+    pfPanel.loadViewpoint(46.53722, 8.12610, 'Finsteraarhorn') // loads a viewpoint
+
+    // animate to view
+    pfPanel.azimut(209.0, 2.0)
+    pfPanel.altitude(1.0, 1.0)
+    pfPanel.fieldofview(45.0, 2.0)
+  }
+  
+  function pf_init()
+  {
+     if (PeakFinder.utils.caniuse()) {
+        pfPanel = new PeakFinder.PanoramaPanel({
+    canvasid: 'pfcanvas', 
+    locale: 'en' // attach to canvas
+  }) 
+  
+  pfPanel.init(function() { pf_confg_panel(); });
+}
+</script>
+</body>
+</html>
