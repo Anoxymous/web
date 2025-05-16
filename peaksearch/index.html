@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Peak Search</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0" />
+		<link rel="stylesheet" href="style.css" />
+		<script async type="text/javascript" src="https://www.peakfinder.com/script/peakfinder.1.0.min.js"></script>
+		<script src="https://openlayers.org/en/v4.6.5/build/ol.js" type="text/javascript"></script>
+	</head>
+	<body onload="initialize_map(); add_map_point(-33.8688, 151.2093);  window_load()">
+		<div class="container">
+				<!-- Header Section -->
+				<div class="section_header">
+					Peak Search
+				</div>
+				<!-- Main Section -->
+				<div class="section_content">
+					<div class="content_tabs">
+						<!-- Tabs -->
+						<div class="tabs">
+							<div class="tab" onclick="showTab('page_peaks')">Peaks</div>
+							<div class="tab" onclick="showTab('page_map')">Map</div>
+							<div class="tab" onclick="showTab('page_info')">Info</div>
+						</div>
+					</div>
+					<!-- Pages -->
+					<div class="content_page">
+						<!-- Page: Peak View -->
+						<div id="page_peaks" class="tab-content active">
+								<canvas id="pfcanvas" oncontextmenu="event.preventDefault()"></canvas>
+								<div id="pfcanvasprogress">
+									<div class="spinner" id="spinner">
+										<div class="bounce1"></div>
+										<div class="bounce2"></div>
+										<div class="bounce3"></div>
+									</div>
+								</div>
+							</div>
+						<!-- Page: Map View -->
+						<div id="page_map" class="tab-content">
+							<div id="map"></div>
+						</div>
+						<!-- Page: Info View -->
+						<div id="page_info" class="tab-content">
+							<h2>Page 3</h2>
+							<p>Here is page 3.</p>
+						</div>
+					</div>
+					<!-- Controls -->
+					<div class="content_controls">
+						controls
+					</div>
+				</div>
+				<!-- Footer Section -->
+        <div class="section_footer">
+					Footer
+				</div>
+    </div>
+		<script type="text/javascript" src="script.js"></script>
+</html>
