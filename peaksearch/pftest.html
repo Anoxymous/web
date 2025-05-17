@@ -19,8 +19,7 @@ textarea {
 
 html,
 body,
-.container,
-.content {
+.container {
   background-color: rgb(248, 248, 248);
   height: 100%;
   margin: 0;
@@ -43,13 +42,17 @@ body {
   flex-direction: column;
 }
 
-.content {
-  position: relative;
+.holder {
+  position: absolute;
+  left: 10%;
+  top: 10%;
+  display: block;
+  width: 50%;
+  height: 50%;
 }
 
-canvas {
+.pfcanvas {
   display: block; /* prevents scrollbar */
-
   width: 100%;
   height: 100%;
 }
@@ -59,53 +62,21 @@ canvas {
   height: 100%;
 }
 
-header,
-footer {
-  flex-shrink: 0;
-}
-
-header {
-  padding: 20px 20px;
-}
-
-footer {
-  padding: 10px 20px;
-}
-
-#canvasoverlay {
-  position: absolute;
-  top: 20px;
-  left: 30px;
-}
-
-header {
-  font-size: 100%;
-  height: 80px;
-  display: flex; /* establish flex container */
-  flex-direction: column; /* make main axis vertical */
-  justify-content: center; /* center items vertically, in this case */
-  align-items: center; /* center items horizontally, in this case */
-}
-
-footer {
-  font-size: 80%;
-  display: flex; /* establish flex container */
-  flex-direction: column; /* make main axis vertical */
-  justify-content: center; /* center items vertically, in this case */
-  align-items: center; /* center items horizontally, in this case */
-}
-
-.content {
+.pfcontent {
+  position: relative;
   flex-grow: 1;
   overflow-y: auto;
   min-height: 2em;
   border-style: solid;
   border-width: 1px 0 1px 0;
   border-color: #ccc;
+background-color: rgb(248, 248, 248);
+  height: 100%;
+  margin: 0;
 }
 
-.spinner {
-  position: fixed; /* or absolute */
+.pfspinner {
+  position: absolute;
   top: 50%;
   left: 50%;
   margin-left: -35px;
@@ -113,7 +84,7 @@ footer {
   text-align: center;
 }
 
-.spinner > div {
+.pfspinner > div {
   width: 10px;
   height: 10px;
   background-color: #555;
@@ -124,12 +95,12 @@ footer {
   animation: sk-bouncedelay 1.4s infinite ease-in-out both;
 }
 
-.spinner .bounce1 {
+.pfspinner .bounce1 {
   -webkit-animation-delay: -0.32s;
   animation-delay: -0.32s;
 }
 
-.spinner .bounce2 {
+.pfspinner .bounce2 {
   -webkit-animation-delay: -0.16s;
   animation-delay: -0.16s;
 }
@@ -160,76 +131,129 @@ footer {
 
     </style>
    
-    <script async type="text/javascript" src="https://www.peakfinder.com/script/peakfinder.1.0.min.js"></script>
+    <script async>
+      const PF_WASMVERSION="4.8.21";var PeakFinder=PeakFinder||{};function PFEvent(e){this.name=e,this.callbacks=[]}PeakFinder.PanoramaPanel=function(e=null){this.options=e,this.events={},this.settings=new PeakFinder.Settings(this),this.viewpoint=new PeakFinder.Viewpoint(this),this.astro=new PeakFinder.Astro(this),this.telescope=new PeakFinder.Telescope(this),this.canvasid="canvas",this.baseurl="https://www.peakfinder.com",this.locale="en",this.disableinfosheets=!1,this.debug=!1,e&&(e.canvasid&&(this.canvasid=e.canvasid),e.baseurl&&(this.baseurl=e.baseurl),e.locale&&(this.locale=e.locale),e.bgcolor&&(this.bgcolor=e.bgcolor),e.theme&&(this.theme=e.theme),e.debug&&(this.debug=e.debug),e.disableinfosheets&&(this.disableinfosheets=e.disableinfosheets))},PeakFinder.PanoramaPanel.prototype.addEventListener=function(e,t){const n=this.events[e];null!=n?n.registerCallback(t):console.log("event '"+e+"' doesn't exists")},PeakFinder.PanoramaPanel.prototype.registerCommandsCallback=function(e){this.commands=e},PeakFinder.PanoramaPanel.prototype.init=function(e){if(!PeakFinder.utils.caniuse())return void console.log("this browser does not support loading the PeakFinder.PanoramaPanel.");console.log("env: 4.8.21");let t=document.createElement("script");t.setAttribute("src",this.baseurl+"/wasm/peakfinder"+(this.debug?"dev":"")+".4.8.21.js"),t.setAttribute("async",""),t.setAttribute("defer",""),t.onload=()=>{var t=this,n={query:window.location.search,style:this.options.style,locale:this.locale,touch:PeakFinder.utils.isTouchDevice(),debug:this.options.debug,canvasid:t.canvasid,bgcolor:t.bgcolor,theme:t.theme,disableinfosheets:t.disableinfosheets},i=document.getElementById(t.canvasid);window.pfModule({canvas:i,arguments:[JSON.stringify(n)],INITIAL_MEMORY:33554432,onRuntimeInitialized:function(){const e=document.getElementById(t.canvasid+"progress");null!=e&&(e.style.display="none")},locateFile:function(e,n){return e.endsWith("4.8.21.wasm")||e.endsWith("4.8.21.wasm.map")||e.endsWith("4.8.21.data")||e.endsWith("4.8.21.worker.js")?t.baseurl+"/wasm/"+e:"../"+e},monitorRunDependencies:function(e){}}).then((n=>{t.wasm=n,t.registerEvent("viewpoint changed"),t.registerEvent("viewpointjourney finished"),t.registerEvent("sun changed"),t.registerEvent("moon changed"),t.registerEvent("poiinfo show"),window.pfHandleCommand=function(n){"initialized"===n&&e&&e(),n.startsWith("viewpoint changed")?t.dispatchEvent("viewpoint changed",JSON.parse(n.substring(18))):n.startsWith("viewpointjourney finished")?t.dispatchEvent("viewpointjourney finished",JSON.parse(n.substring(26))):n.startsWith("astro sun changed")?t.dispatchEvent("sun changed",JSON.parse(n.substring(18))):n.startsWith("astro moon changed")?t.dispatchEvent("moon changed",JSON.parse(n.substring(19))):n.startsWith("poiinfo show")&&(console.log(n.substring(13)),t.dispatchEvent("poiinfo show",JSON.parse(n.substring(13)))),t.commands&&t.commands(n)}}))},document.head.appendChild(t)},PeakFinder.PanoramaPanel.prototype.asyncinit=async function(){return new Promise(((e,t)=>{this.init((function(){e()}))}))},PeakFinder.PanoramaPanel.prototype.loadViewpoint=function(e,t,n=""){this.wasm.cwrap("startLoadingViewpoint","",["number","number","string"])(e,t,n)},PeakFinder.PanoramaPanel.prototype.viewpointJourneyFinished=function(){return this.wasm.cwrap("viewpointJourneyFinished","boolean",[])()},PeakFinder.PanoramaPanel.prototype.azimut=function(e,t){return void 0===e?this.wasm._getAzimut():(this.wasm._setAzimut(e,void 0===t?0:t),this.asleep(t))},PeakFinder.PanoramaPanel.prototype.altitude=function(e,t){return void 0===e?this.wasm._getAltitude():(this.wasm._setAltitude(e,void 0===t?0:t),this.asleep(t))},PeakFinder.PanoramaPanel.prototype.fieldofview=function(e,t){return void 0===e?this.wasm._getFieldOfView():(this.wasm._setFieldOfView(e,void 0===t?0:t),this.asleep(t))},PeakFinder.PanoramaPanel.prototype.elevationOffset=function(e,t){return void 0===e?this.wasm._getElevationOffset():(this.wasm._setElevationOffset(e,void 0===t?0:t),this.asleep(t))},PeakFinder.Settings=function(e){this.panel=e},PeakFinder.Settings.prototype.theme=function(e){return void 0===e?this.panel.wasm._getTheme():(this.panel.wasm._setTheme(e),this)},PeakFinder.Settings.prototype.distanceUnit=function(e){return void 0===e?this.panel.wasm._getDistanceUnit():(this.panel.wasm._setDistanceUnit(e),this)},PeakFinder.Settings.prototype.coordsFormat=function(e){return void 0===e?this.panel.wasm._getCoordsFormat():(this.panel.wasm._setCoordsFormat(e),this)},PeakFinder.Settings.prototype.projection=function(e){return void 0===e?this.panel.wasm._getProjection():(this.panel.wasm._setProjection(e),this)},PeakFinder.Settings.prototype.showSun=function(e){return void 0===e?this.panel.wasm._getShowSun():(this.panel.wasm._setShowSun(e),this)},PeakFinder.Settings.prototype.showMoon=function(e){return void 0===e?this.panel.wasm._getShowMoon():(this.panel.wasm._setShowMoon(e),this)},PeakFinder.Settings.prototype.showGrid=function(e){return void 0===e?this.panel.wasm._getShowGrid():(this.panel.wasm._setShowGrid(e),this)},PeakFinder.Settings.prototype.visibilityRange=function(e){return void 0===e?this.panel.wasm._getVisibilityRange():(this.panel.wasm._setVisibilityRange(e),this)},PeakFinder.Settings.prototype.minimalElevation=function(e){return void 0===e?this.panel.wasm._getMinimalElevation():(this.panel.wasm._setMinimalElevation(e),this)},PeakFinder.Viewpoint=function(e){this.panel=e},PeakFinder.Viewpoint.prototype.name=function(){return this.panel.wasm.cwrap("getViewpointName","string")()},PeakFinder.Viewpoint.prototype.coordsDecimal=function(){return this.panel.wasm.cwrap("getViewpointCoordsDecimal","string")()},PeakFinder.Viewpoint.prototype.coordsDegree=function(){return this.panel.wasm.cwrap("getViewpointCoordsDegree","string")()},PeakFinder.Viewpoint.prototype.elevation=function(){return this.panel.wasm.cwrap("getViewpointElevation","number")()},PeakFinder.Astro=function(e){this.panel=e},PeakFinder.Astro.prototype.currentDateTime=function(e,t,n,i,s){return this.panel.wasm.cwrap("setAstroDateTime","",["number","number","number","number","number"])(e,t,n,i,s)},PeakFinder.Astro.prototype.currentDateTimeNow=function(){return this.panel.wasm.cwrap("setAstroDateTime","")()},PeakFinder.Astro.prototype.sun=function(){return JSON.parse(this.panel.wasm.cwrap("getAstroSunJson","string")())},PeakFinder.Astro.prototype.sunTimes=function(){return this.panel.wasm.cwrap("getAstroSunTimes","string")()},PeakFinder.Astro.prototype.moon=function(){return JSON.parse(this.panel.wasm.cwrap("getAstroMoonJson","string")())},PeakFinder.Astro.prototype.moonTimes=function(){return this.panel.wasm.cwrap("getAstroMoonTimes","string")()},PeakFinder.Telescope=function(e){this.panel=e},PeakFinder.Telescope.prototype.show=function(){this.panel.wasm._showBinoculars()},PeakFinder.Telescope.prototype.hide=function(){this.panel.wasm._hideBinoculars()},PeakFinder.Telescope.prototype.centerAzimut=function(){return this.panel.wasm._getBinocularsCenterAzimut()},PeakFinder.Telescope.prototype.centerAltitude=function(){return this.panel.wasm._getBinocularsCenterAltitude()},PeakFinder.Telescope.prototype.centerDistance=function(){return this.panel.wasm._getBinocularsCenterDistance()},PeakFinder.Telescope.prototype.centerElevation=function(){return this.panel.wasm._getBinocularsCenterElevation()},PeakFinder.utils={caniuse:function(){try{if("object"==typeof WebAssembly&&"function"==typeof WebAssembly.instantiate){const e=new WebAssembly.Module(Uint8Array.of(0,97,115,109,1,0,0,0));if(e instanceof WebAssembly.Module)return new WebAssembly.Instance(e)instanceof WebAssembly.Instance}}catch(e){}return!1},isTouchDevice:function(){return"ontouchstart"in window||navigator.maxTouchPoints>0||navigator.msMaxTouchPoints>0},sleep:function(e){return new Promise((t=>{setTimeout(t,1e3*e)}))}},PeakFinder.PanoramaPanel.prototype.asleep=function(e){return e>0?new Promise((t=>{setTimeout(t,1e3*e)})):null},PFEvent.prototype.registerCallback=function(e){this.callbacks.push(e)},PeakFinder.PanoramaPanel.prototype.registerEvent=function(e){var t=new PFEvent(e);this.events[e]=t},PeakFinder.PanoramaPanel.prototype.dispatchEvent=function(e,t){const n=this.events[e];null!=n?n.callbacks.forEach((function(e){e(t)})):console.log("event '"+e+"' doesn't exists")};
+
+      
+    </script>
   </head> 
 
   <body>
     <div class="container">
-      <header>
-        <img
-          id="logo"
-          src="https://www.peakfinder.com/peakfinder.svg"
-          alt="PeakFinder Logo"
-          title="PeakFinder Logo"
-          height="30"
-          width="208"
-        />
-        <br />
-        Demo Page
-      </header>
-
-      <div class="content">
-        <canvas id="pfcanvas" oncontextmenu="event.preventDefault()"> </canvas>
-
-        <div id="pfcanvasprogress">
-          <div class="spinner" id="spinner">
-            <div class="bounce1"></div>
-            <div class="bounce2"></div>
-            <div class="bounce3"></div>
-          </div>
-        </div>
+      <div class="holder" >
+      <div class="pfcontent" id="pfcontent">
+        <!--
+        <canvas class="pfcanvas" id="pfcanvas" oncontextmenu="event.preventDefault()"> </canvas>-->
       </div>
-
-      <footer>
-        <p>Footer</p>
-      </footer>
+      </div>
     </div>
 
     <script type="text/javascript">
  
       window.onload = () => {
+        pf_init()
+        pf_setPosition(46.53722, 8.12610, 'Finsteraarhorn', 3, 270, 10, 45)
+        pf_setTime(2026, 9, 26, 07, 30)
+}
 
-        if (PeakFinder.utils.caniuse()) {
+var pfpanel;
+var dps = 15;
+var mps = 10;
+var next_az;
+var next_al;
+var next_el;
+var next_fov;
+var next_lat = 0;
+var next_lon = 0;
+var next_loc = "no location"
 
-          let panel = new PeakFinder.PanoramaPanel({
+function pf_setLocation(lat, lon, loc)
+{
+  pf_setPosition(lat, lon, loc, pfpanel.elevationOffset(), pfPanel.azimut(), pfPanel.altitude(), pfpanel.fieldofview());
+}
+
+function pf_setPosition(lat, lon, loc, el, az, al, fov)
+{
+  next_az = az;
+  next_al = al;
+  next_el = el;
+  next_fov = fov;
+  next_lat = lat;
+  next_lon = lon;
+  next_loc = loc;
+  pfPanel.loadViewpoint(next_lat, next_lon, next_loc)
+}
+
+function pf_setTime(y, m, d, h, min)
+{
+  pfPanel.astro.currentDateTime(y, m, d, h, min);
+}
+
+function pf_init()
+{
+  var pfDiv = document.getElementById("pfcontent");
+  
+  var pfCanv = document.createElement("canvas");
+  pfCanv.setAttribute("id", "pfcanvas");
+  pfCanv.className = "pfcanvas";
+  pfCanv.setAttribute("oncontextmenu", "event.preventDefault()");
+  pfDiv.appendChild(pfCanv);
+  
+  var pfProg = document.createElement("div");
+  pfProg.setAttribute("id", "pfcanvasprogress");
+  pfDiv.appendChild(pfProg);
+  
+var pfSpinner = document.createElement("div");
+pfSpinner.setAttribute("id", "pfspinner")
+pfSpinner.className = "pfspinner";
+pfProg.appendChild(pfSpinner);
+
+var b1 = document.createElement("div");
+var b2 = document.createElement("div");
+var b3 = document.createElement("div");
+b1.className = "bounce1"
+b2.className = "bounce2"
+b3.className = "bounce3"
+pfSpinner.appendChild(b1);
+pfSpinner.appendChild(b2);
+pfSpinner.appendChild(b3);
+  
+  if (PeakFinder.utils.caniuse()) {
+  pfPanel = new PeakFinder.PanoramaPanel({
             canvasid: 'pfcanvas', 
             locale: 'en'
           }) // attach to canvas
-         
-          panel.addEventListener('viewpointjourney finished', function (args) {
-            console.log('viewpointjourney finished' + args)
-          })
-
-          panel.init(function() {
-            console.log('ready')
-            panel.settings.distanceUnit(1)
-        
-            panel.loadViewpoint(46.53722, 8.12610, 'Finsteraarhorn')
-
-            panel.addEventListener('viewpointjourney finished', async function(vp) {
-                console.log(`viewpoint ready ${vp}`)
           
-                // animate to view
-                panel.azimut(209.0, 2.0)
-                panel.altitude(1.0, 1.0)
-                panel.fieldofview(45.0, 2.0)
-            })
-          })
-        }
-        else { // !caniuse
-        
-        }
-      }
+  pfPanel.init(function() { pf_init_panel_settings();
+    pfPanel.loadViewpoint(next_lat, next_lon, next_loc)
+  })
+  
+  }
+}
+  
+  function pf_init_panel_settings()
+  {
+    pfPanel.settings.distanceUnit(0)
+    pfPanel.settings.showMoon(1)
+		pfPanel.settings.theme(1)
+		
+		pfPanel.addEventListener('viewpointjourney finished', async function(vp) {pf_animateCallback(vp) } )
+  }
+  
+  function pf_animateCallback(vp) 
+  {
+    console.log(`viewpoint ready ${vp}`)
+    
+    // animate to view
+    var speed_az = next_az / dps;
+    var speed_al = next_al / dps
+    var speed_fov = next_fov / dps
+    var speed_el = next_el / mps
+    pfPanel.azimut(next_az, speed_az)
+    pfPanel.altitude(next_al, speed_al)
+    pfPanel.elevationOffset(next_el, speed_el)
+    pfPanel.fieldofview(next_fov, speed_fov)
+  }
     </script>
   </body>
 </html>
