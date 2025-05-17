@@ -5,6 +5,11 @@ var pf_mps = 10;
 
 // Globals
 var pf_ready = 0;
+var pf_next = new Map();
+pf_next.set("loc", "no location");
+pf_next.set("lat", 0);
+pf_next.set("lon", 0);
+
 var pf_next_az;
 var pf_next_al;
 var pf_next_el;
@@ -24,22 +29,27 @@ function pf_setLocation(lat, lon, loc)
 
 function pf_setPosition(lat, lon, loc, el, az, al, fov)
 {
-	pf_next_az = az;
-	pf_next_al = al;
-	pf_next_el = el;
-	pf_next_fov = fov;
-	pf_next_lat = lat;
-	pf_next_lon = lon;
-	pf_next_loc = loc;
+  pf_next.set("lat", lat);
+  pf_next.set("lon", lon);
+  pf_next.set("loc", loc);
+  pf_next.set("el", el);
+  pf_next.set("az", az);
+  pf_next.set("al", al);
+  pf_next.set("fov", fov);
 	if(pf_ready)
 	{
-		pf_panel.loadViewpoint(pf_next_lat, pf_next_lon, pf_next_loc)
+		pf_panel.loadViewpoint(lat, lon, loc);
 	}
 }
 
 function pf_setTime(y, m, d, h, min)
 {
-	// TODO - set this
+	pf_next.set("year", y);
+  pf_next.set("month", m);
+  pf_next.set("day", d);
+  pf_next.set("hour", h);
+  pf_next.set("minute", min);
+  
 	if(pf_ready)
 	{
 		pf_panel.astro.currentDateTime(y, m, d, h, min);
@@ -99,23 +109,36 @@ function pf_init_panel_settings()
 	pf_panel.settings.theme(1)
 	pf_panel.addEventListener('viewpointjourney finished', async function(vp) {pf_animateCallback(vp) } )
 	
-	pf_panel.loadViewpoint(pf_next_lat, pf_next_lon, pf_next_loc)
+	pf_panel.loadViewpoint(
+	  pf_next.get("lat"),
+	  pf_next.get("lon"),
+	  pf_next.get("loc")
+	)
+	
+	if (pf_next.has("minute", min)) {
+	  pf_panel.astro.currentDateTime(
+	    pf_next.get("year"),
+	    pf_next.get("month"),
+	    pf_next.get("day"),
+	    pf_next.get("hour"),
+	    pf_next.get("minute")
+	  );
+	}
 	pf_ready = 1
 }
 
 function pf_animateCallback(vp) 
 {
 //	console.log(`viewpoint ready ${vp}`)
-	
 	// animate to view
-	var speed_az = pf_next_az / pf_dps;
-	var speed_al = pf_next_al / pf_dps
-	var speed_fov = pf_next_fov / pf_dps
-	var speed_el = pf_next_el / pf_mps
-	pf_panel.azimut(pf_next_az, speed_az)
-	pf_panel.altitude(pf_next_al, speed_al)
-	pf_panel.elevationOffset(pf_next_el, speed_el)
-	pf_panel.fieldofview(pf_next_fov, speed_fov)
+	var speed_az = pf_next.get("az") / pf_dps;
+	var speed_al = pf_next.get("al") / pf_dps
+	var speed_fov = pf_next.get("fov") / pf_dps
+	var speed_el = pf_next.get("el") / pf_mps
+	pf_panel.azimut(pf_next.get("az"), speed_az)
+	pf_panel.altitude(pf_next.get("al"), speed_al)
+	pf_panel.elevationOffset(pf_next.get("el"), speed_el)
+	pf_panel.fieldofview(pf_next.get("fov"), speed_fov)
 }
 
 function pf_resize()

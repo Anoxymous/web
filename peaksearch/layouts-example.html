@@ -71,14 +71,10 @@
 		<script type="text/javascript" src="pf-scripts.js"></script>
 		<script type="text/javascript" src="lo-scripts.js"></script>
     <script>
-	
+	  <script type="text/javascript" src="this-scripts.js"></script>
+	  
+    <script>
   
-function updateMapLocation(lat, lon, name)
-{
-   om_updateMapLocation(lat, lon, name)
-	 pf_setLocation(lat, lon, name)
-}
-
 
 function map_search_init()
 {
@@ -127,16 +123,7 @@ function map_search_init()
             searchBox.style.display = searchBox.style.display === "none" ? "block" : "none";
         }
 
-function window_load() {
-   layouts_init();
-   initialize_map();
-   add_map_point(-33.8688, 151.2093); 
-//   map_search_init()
-	 
-	pf_init(-27.909281, 153.109104, 'Albert River')
-	pf_setPosition(46.53722, 8.12610, 'Finsteraarhorn', 3, 270, 10, 45)
-	pf_setTime(2026, 9, 26, 07, 30)
- }
+
  
     </script>
 	
