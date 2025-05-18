@@ -51,7 +51,5 @@ function om_updateMapLocation(lat, lon, name)
     var newCoords = ol.proj.fromLonLat([lon, lat]); // Convert lat/lon to map projection
     view.setCenter(newCoords);
     view.setZoom(12); // Adjust zoom level if needed
-		
-		var newCoords = ol.proj.fromLonLat([lon, lat]); // Convert lat/lon to map projection
     pointFeature.getGeometry().setCoordinates(newCoords);
 }
