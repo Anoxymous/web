@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Nearest Locations</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+        }
+        .input-group {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 10px 0;
+        }
+        input {
+            width: 60%;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .indicator {
+            font-size: 18px;
+            font-weight: bold;
+            width: 20%;
+            text-align: center;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        #map {
+            width: 100%;
+            height: 300px;
+            margin-top: 20px;
+        }
+        #results {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body onload="getCurrentLocation()">
+    <div class="container">
+        <h2>Find Nearest Locations</h2>
+
+        <div class="input-group">
+            <input type="number" id="latitude" placeholder="Latitude (-90 to 90)" min="-90" max="90" step="0.01" oninput="updateIndicators()">
+            <span class="indicator" id="lat-indicator">N</span>
+        </div>
+
+        <div class="input-group">
+            <input type="number" id="longitude" placeholder="Longitude (-180 to 180)" min="-180" max="180" step="0.01" oninput="updateIndicators()">
+            <span class="indicator" id="lon-indicator">E</span>
+        </div>
+
+        <button onclick="findClosestLocations()">Go</button>
+
+        <div id="map"></div>
+        <p id="results"></p>
+    </div>
+
+    <script>
+        let map;
+        let controller;
+
+        function updateIndicators() {
+            const lat = parseFloat(document.getElementById("latitude").value) || 0;
+            const lon = parseFloat(document.getElementById("longitude").value) || 0;
+
+            document.getElementById("lat-indicator").innerText = lat >= 0 ? "N" : "S";
+            document.getElementById("lon-indicator").innerText = lon >= 0 ? "E" : "W";
+        }
+
+        async function findClosestLocations() {
+
+                const lat = parseFloat(document.getElementById("latitude").value);
+    const lon = parseFloat(document.getElementById("longitude").value);
+    const resultsBox = document.getElementById("results");
+
+    if (isNaN(lat) || isNaN(lon)) {
+        resultsBox.innerText = "Please enter valid latitude and longitude values.";
+        return;
+    }
+
+    const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}`;
+    resultsBox.innerText = "Fetching closest address...";
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+                if (data.length > 0) {
+                    resultsBox.innerHTML = `<strong>Nearest Locations:</strong><br>`;
+                    map.setView([lat, lon], 12);
+                    map.eachLayer((layer) => {
+                        if (layer instanceof L.Marker) {
+                            map.removeLayer(layer);
+                        }
+                    });
+
+                    data.forEach((location, index) => {
+                        resultsBox.innerHTML += `${index + 1}. ${location.display_name} <br>`;
+                        L.marker([location.lat, location.lon])
+                            .addTo(map)
+                            .bindPopup(`${location.display_name}`)
+                            .openPopup();
+                    });
+                } else {
+                    resultsBox.innerText = "No locations found near the provided coordinates.";
+                }
+            } catch (error) {
+                resultsBox.innerText = "Error fetching data.";
+                console.error(error);
+            }
+        }
+
+        function getCurrentLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    document.getElementById("latitude").value = position.coords.latitude.toFixed(6);
+                    document.getElementById("longitude").value = position.coords.longitude.toFixed(6);
+                    updateIndicators();
+                    initMap(position.coords.latitude, position.coords.longitude);
+                }, () => {
+                    console.error("Geolocation failed or was denied.");
+                });
+            } else {
+                console.error("Geolocation is not supported.");
+            }
+        }
+
+        function initMap(lat, lon) {
+            map = L.map("map").setView([lat, lon], 12);
+            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                attribution: "&copy; OpenStreetMap contributors",
+            }).addTo(map);
+        }
+    </script>
+</body>
+</html>
