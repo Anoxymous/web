@@ -92,7 +92,7 @@ function showTab(tab)
 
 function toggleTab(i)
 {
-		setting_info_tab = (setting_info_tab == 1) ? 0 : 1;
+		setting_info_tab = (setting_info_tab == i) ? 0 : i;
 		configureView()
 }
 				
@@ -101,7 +101,13 @@ function configureView()
 		div_float_s.style.display = (setting_view_type == "s") ? "flex" : "none";
 		div_float_v.style.display = (setting_view_type == "v") ? "flex" : "none";
 		div_float_h.style.display = (setting_view_type == "h") ? "flex" : "none";
-		div_info.style.display = (setting_info_tab) ? "flex" : "none";
+		
+		// Select all elements with the class "contents-floater"
+		var elements = document.querySelectorAll(".contents-floater");
+		elements.forEach(element => {
+			element.style.display = (element.id == setting_info_tab) ? "flex" : "none";
+		});
+		
 		
 	
 			if(setting_view_type == "s")

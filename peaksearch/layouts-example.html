@@ -8,31 +8,48 @@
 <!--    <script async type="text/javascript" src="./pf-min.js"></script> -->
 		<script src="https://openlayers.org/en/v4.6.5/build/ol.js" type="text/javascript"></script>
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<script type="text/javascript" src="lib\ui\ui-scripts.js"></script>
+
 		<link rel="stylesheet" href="lib\lo\lo-styles.css" />
 		<link rel="stylesheet" href="lib\ui\ui-styles.css" />
-		<link rel="stylesheet" href="pf-styles.css" />
-		<link rel="stylesheet" href="om-styles.css" />
+		<link rel="stylesheet" href="lib\pf\pf-styles.css" />
+		<link rel="stylesheet" href="lib\om\om-styles.css" />
 </head>
-<body onload="window_load()">
-    <div class="container">
+	<body onload="window_load()">
+		<div class="container">
 				<div class="bar-logo" id="bar-logo">L</div>
 				<div class="bar-tabs" id="bar-tabs">
 							<div
 							  class="bar-button"
 							  onclick="showTab('e')"
 							  style="background-image: url('img/icons/eye.svg');" ></div>
-							<div class="bar-button" onclick="showTab('m')"
-							style="background-image: url('img/icons/map.svg');"></div>
-							<div class="bar-button" onclick="toggleTab('i')"
-					    	style="background-image: url('img/icons/info.svg');"></div>
+							<div
+								class="bar-button"
+								onclick="showTab('m')"
+								style="background-image: url('img/icons/map.svg');" >
+							</div>
+							<div
+								class="bar-button"
+								onclick="toggleTab('contents-info')"
+					    	style="background-image: url('img/icons/info.svg');" >
+							</div>
 				</div>
 				<div class="bar-controls" id="bar-controls">
-							<div id="button-l" class="bar-button" onclick="toggleTab('l')"
-							style="background-image: url('img/icons/pin.svg');"></div>
-							<div class="bar-button" onclick="toggleTab('t')"style="background-image: url('img/icons/date.svg');"></div>
-							<div  id="button-v"  class="bar-button" onclick="toggleToolbar()"
-							style="background-image: url('img/icons/layouts.svg');"
-							>
+							<div
+								class="bar-button"
+								onclick="toggleTab('locations-form-holder')"
+								style="background-image: url('img/icons/loc.svg');" >
+							</div>
+							<div
+								class="bar-button"
+								onclick="toggleTab('t')"
+								style="background-image: url('img/icons/date.svg');" >
+							</div>
+							<div
+								id="button-v" 
+								class="bar-button"
+								onclick="toggleToolbar()"
+								style="background-image: url('img/icons/layouts.svg');" >
 								<div class="pop-out-toolbar-up" id="toolbar-views">
 									<div class="bar-button" onclick="toggleView('s')" style="background-image: url('img/icons/layout_s.svg');"></div>
 									<div class="bar-button" onclick="toggleView('h')" style="background-image: url('img/icons/layout_h.svg');"></div>
@@ -41,7 +58,19 @@
 							</div>
 				</div>
 				<div class="contents-floater" id="contents-info">Info</div>
-					
+				
+				<div class="contents-floater" id="locations-form-holder" style="left: 10%; top: 50%;" >
+					<div class="ui_form" id="location-form">
+						<h2>Jump to Location</h2>
+							<form onsubmit="event.preventDefault();">
+							<input type="text" id="location" placeholder="Enter Name..." required>
+							<input type="text" id="latitude" placeholder="Latitude" required>
+							<input type="text" id="longitude" placeholder="Longitude" required>
+							<button type="submit">Go</button>
+						</form>
+					</div>
+				</div>
+				
 				<div class="float-container-s" id="float-container-s">
 					<div class="contents-holder" id="contents-map">
 						<div class="map-holder" id="map"></div>
@@ -67,9 +96,9 @@
 				
     </div>
    
-		<script type="text/javascript" src="om-scripts.js"></script>
-		<script type="text/javascript" src="pf-scripts.js"></script>
-		<script type="text/javascript" src="lo-scripts.js"></script>
+		<script type="text/javascript" src="lib\om\om-scripts.js"></script>
+		<script type="text/javascript" src="lib\pf\pf-scripts.js"></script>
+		<script type="text/javascript" src="lib\lo\lo-scripts.js"></script>
 	  <script type="text/javascript" src="this-scripts.js"></script>
 	  
     <script>
