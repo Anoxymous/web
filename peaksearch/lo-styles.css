@@ -90,7 +90,7 @@ body {
 }
 	
 .floater-resizer-v {
-	height: 5px;
+	height: 10px;
 	background-color: #888;
 	cursor: ns-resize;
 	z-index: 5;
