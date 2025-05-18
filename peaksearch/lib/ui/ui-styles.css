@@ -29,8 +29,6 @@ input, button {
 	font-size: 16px;
 }
 
-
-
 .ui_suggestions {
 	position: absolute;
 	background: white;
@@ -40,6 +38,20 @@ input, button {
 	overflow-y: auto;
 	z-index: 1000;
 	display: none;
+}
+
+.input-group {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin: 10px 0;
+}
+
+.indicator {
+	font-size: 18px;
+	font-weight: bold;
+	width: 20%;
+	text-align: center;
 }
 
 .ui_suggestion-loading {

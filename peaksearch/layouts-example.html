@@ -15,9 +15,9 @@
 		<link rel="stylesheet" href="lib\pf\pf-styles.css" />
 		<link rel="stylesheet" href="lib\om\om-styles.css" />
 </head>
-	<body onload="window_load()">
+	<body>
 		<div class="container">
-				<div class="bar-logo" id="bar-logo">L</div>
+				<div class="bar-logo" id="bar-logo" style="background-image: url('img/ss_logo.svg');"></div>
 				<div class="bar-tabs" id="bar-tabs">
 							<div
 							  class="bar-button"
@@ -59,17 +59,7 @@
 				</div>
 				<div class="contents-floater" id="contents-info">Info</div>
 				
-				<div class="contents-floater" id="locations-form-holder" style="left: 10%; top: 50%;" >
-					<div class="ui_form" id="location-form">
-						<h2>Jump to Location</h2>
-							<form onsubmit="event.preventDefault();">
-							<input type="text" id="location" placeholder="Enter Name..." required>
-							<input type="text" id="latitude" placeholder="Latitude" required>
-							<input type="text" id="longitude" placeholder="Longitude" required>
-							<button type="submit">Go</button>
-						</form>
-					</div>
-				</div>
+				<div class="contents-floater" id="locations-form-holder"></div>
 				
 				<div class="float-container-s" id="float-container-s">
 					<div class="contents-holder" id="contents-map">
@@ -100,61 +90,5 @@
 		<script type="text/javascript" src="lib\pf\pf-scripts.js"></script>
 		<script type="text/javascript" src="lib\lo\lo-scripts.js"></script>
 	  <script type="text/javascript" src="this-scripts.js"></script>
-	  
-    <script>
-  
-
-function map_search_init()
-{
-
-						        $("#searchInput").on("input", function() {
-            var query = $(this).val();
-            if (query.length < 3) {
-                $("#autocompleteList").hide();
-                return;
-            }
-
-            $.getJSON(`https://nominatim.openstreetmap.org/search?format=json&q=${query}`, function(data) {
-                var list = $("#autocompleteList");
-                list.empty();
-                if (data.length > 0) {
-                    list.show();
-                    data.forEach(function(item) {
-                        list.append('<div class="autocomplete-item" data-lat="${item.lat}" data-lon="${item.lon}">${item.display_name}</div>');
-										});
-                } else {
-                    list.hide();
-                }
-            });
-        });
-
-        $(document).on("click", ".autocomplete-item", function() {
-            var lat = $(this).data("lat");
-            var lon = $(this).data("lon");
-            $("#latInput").val(lat);
-            $("#lonInput").val(lon);
-            $("#autocompleteList").hide();
-						updateMapLocation(lat, lon)
-        });
-				
-}
-
-				function handleLocationChange() {
-            var lat = document.getElementById("latInput").value;
-            var lon = document.getElementById("lonInput").value;
-
-						updateMapLocation(lat, lon)
-        }
-				
-        function toggleSearch() {
-            var searchBox = document.getElementById("searchBox");
-            searchBox.style.display = searchBox.style.display === "none" ? "block" : "none";
-        }
-
-
- 
-    </script>
-	
-
 </body>
 </html>
