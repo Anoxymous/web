@@ -57,7 +57,9 @@ function resizeDivs(event) {
 	if (isResizing_v)
 	{
 		var newHeight = e.clientY;
+		var bottomHeight = (bottomDiv.parentElement.offsetHeight - newHeight) - 10;
 		topDiv.style.height = `${newHeight}px`;
+		bottomDiv.style.height =  `${bottomHeight}px`;
 		bottomDiv.style.flex = "1"; // Ensures the bottom div fills remaining space
 	}
 	else if(isResizing_h)

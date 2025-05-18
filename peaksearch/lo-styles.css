@@ -90,7 +90,8 @@ body {
 }
 	
 .floater-resizer-v {
-	height: 10px;
+	height: 5px;
+	min-height: 5px;
 	background-color: #888;
 	cursor: ns-resize;
 	z-index: 5;
@@ -112,6 +113,7 @@ body {
 	
 .floater-resizer-h {
 	width: 5px;
+	min-width: 5px;
 	background-color: #888;
 	cursor: ew-resize;
 	z-index: 5;
