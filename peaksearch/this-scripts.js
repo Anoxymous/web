@@ -15,7 +15,7 @@ function main()
 {
    layouts_init();
    initialize_map();
-   add_map_point(-33.8688, 151.2093); 
+//   add_map_point(-33.8688, 151.2093); 
 	 
 	pf_init();
 	pf_setPosition(0, 0, 0, 3, 270, 1, 30);

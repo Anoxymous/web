@@ -1,7 +1,7 @@
 	var map;
     var mapLat = -33.829357;
 		var mapLng = 150.961761;
-    var mapDefaultZoom = 10;
+    var mapDefaultZoom = 12;
 		var pointFeature;
     var panel;
     
@@ -21,6 +21,7 @@
             zoom: mapDefaultZoom
         })
       });
+			add_map_point(mapLat, mapLng)
     }
 
     function add_map_point(lat, lng) {
@@ -49,7 +50,7 @@ function om_updateMapLocation(lat, lon, name)
  {
     var view = map.getView();
     var newCoords = ol.proj.fromLonLat([lon, lat]); // Convert lat/lon to map projection
-    view.setCenter(newCoords);
-    view.setZoom(12); // Adjust zoom level if needed
-    pointFeature.getGeometry().setCoordinates(newCoords);
+		var newCoords2 = ol.proj.transform([parseFloat(lon), parseFloat(lat)], 'EPSG:4326', 'EPSG:3857');
+		pointFeature.getGeometry().setCoordinates(newCoords2);
+    view.setCenter(newCoords2);
 }
