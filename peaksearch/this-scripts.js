@@ -4,6 +4,7 @@ function updateMapLocation(lat, lon, name)
 {
    om_updateMapLocation(lat, lon, name)
 	 pf_setLocation(lat, lon, name)
+	 
 }
 
 function updateTimeUTC(lat, lon, name)
@@ -19,6 +20,7 @@ function main()
 //   map_search_init()
 	 
 	pf_init();
+	pf_setPosition(0, 0, 0, 3, 270, 1, 30);
 	
 	updateMapLocation(-27.909281, 153.109104, 'Albert River')
 	updateTimeUTC(2026, 9, 26, 07, 30)

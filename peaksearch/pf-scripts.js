@@ -24,7 +24,15 @@ var pfCanv;
 
 function pf_setLocation(lat, lon, loc)
 {
-	pf_setPosition(lat, lon, loc, pf_panel.elevationOffset(), pf_panel.azimut(), pf_panel.altitude(), pf_panel.fieldofview());
+	if(pf_ready)
+	{
+		pf_setPosition(lat, lon, loc, pf_panel.elevationOffset(), pf_panel.azimut(), pf_panel.altitude(), pf_panel.fieldofview());
+	}
+	else
+	{
+		pf_setPosition(lat, lon, loc, pf_next.get("el"), pf_next.get("az"), pf_next.get("al"), pf_next.get("fov"));
+	}
+	
 }
 
 function pf_setPosition(lat, lon, loc, el, az, al, fov)
@@ -115,7 +123,7 @@ function pf_init_panel_settings()
 	  pf_next.get("loc")
 	)
 	
-	if (pf_next.has("minute", min)) {
+	if (pf_next.has("minute")) {
 	  pf_panel.astro.currentDateTime(
 	    pf_next.get("year"),
 	    pf_next.get("month"),
