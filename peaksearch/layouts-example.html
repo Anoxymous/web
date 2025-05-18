@@ -17,21 +17,26 @@
     <div class="container">
 				<div class="bar-logo" id="bar-logo">L</div>
 				<div class="bar-tabs" id="bar-tabs">
-							<div class="bar-button" onclick="showTab('e')">e</div>
-							<div class="bar-button" onclick="showTab('m')">m</div>
-							<div class="bar-button" onclick="toggleTab('i')">i</div>
+							<div
+							  class="bar-button"
+							  onclick="showTab('e')"
+							  style="background-image: url('img/icons/eye.svg');" ></div>
+							<div class="bar-button" onclick="showTab('m')"
+							style="background-image: url('img/icons/map.svg');"></div>
+							<div class="bar-button" onclick="toggleTab('i')"
+					    	style="background-image: url('img/icons/info.svg');"></div>
 				</div>
 				<div class="bar-controls" id="bar-controls">
-							<div id="button-l" class="bar-button" onclick="toggleTab('l')">
-								l
-							</div>
-							<div class="bar-button" onclick="toggleTab('i')">t</div>
-							<div  id="button-v"  class="bar-button" onclick="toggleToolbar()">
-								v
+							<div id="button-l" class="bar-button" onclick="toggleTab('l')"
+							style="background-image: url('img/icons/pin.svg');"></div>
+							<div class="bar-button" onclick="toggleTab('t')"style="background-image: url('img/icons/date.svg');"></div>
+							<div  id="button-v"  class="bar-button" onclick="toggleToolbar()"
+							style="background-image: url('img/icons/layouts.svg');"
+							>
 								<div class="pop-out-toolbar-up" id="toolbar-views">
-									<div class="bar-button" onclick="toggleView('s')">s</div>
-									<div class="bar-button" onclick="toggleView('h')">h</div>
-									<div class="bar-button" onclick="toggleView('v')">v</div>
+									<div class="bar-button" onclick="toggleView('s')" style="background-image: url('img/icons/layout_s.svg');"></div>
+									<div class="bar-button" onclick="toggleView('h')" style="background-image: url('img/icons/layout_h.svg');"></div>
+									<div class="bar-button" onclick="toggleView('v')" style="background-image: url('img/icons/layout_v.svg');"></div>
 								</div>
 							</div>
 				</div>
