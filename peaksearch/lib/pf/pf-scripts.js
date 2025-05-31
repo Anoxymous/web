@@ -1,3 +1,8 @@
+function pf_init2()
+{
+	import_JS("https://www.peakfinder.com/script/peakfinder.1.0.min.js")
+}
+
 
 // Consts
 var pf_dps = 15;
@@ -167,3 +172,5 @@ function pf_resize()
 //		pf_panel.fieldofview(pf_next_fov, 0)
 	}
 }
+
+pf_init2()

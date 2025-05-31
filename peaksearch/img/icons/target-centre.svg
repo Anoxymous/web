@@ -2,4 +2,24 @@
   <circle cx="12" cy="12" r="4" fill="none" stroke="black" stroke-width="2"/>
   <circle cx="12" cy="12" r="8" fill="none" stroke="black" stroke-width="2"/>
   <path fill="none" stroke="black" stroke-width="2" d="M12 2v4 M12 18v4 M2 12h4 M18 12h4"/>
+	
+  <path fill="none" stroke="black" stroke-width="1" d="
+		M 3 6
+		L 3 3
+		L 6 3
+		
+		M 21 6
+		L 21 3
+		L 18 3
+
+		M 21 18
+		L 21 21
+		L 18 21
+		
+		M 3 18
+		L 3 21
+		L 6 21
+		
+		"/>
+
 </svg>

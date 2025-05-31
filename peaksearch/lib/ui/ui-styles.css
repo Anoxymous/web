@@ -44,8 +44,19 @@ input, button {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	margin: 10px 0;
+	margin: 10px 0px;
+	gap: 5px;
 }
+
+.input-bar {
+	background: none;
+	padding: 0px;
+	cursor: pointer;
+	display: flex;
+	flex-direction: row;
+	gap: 5px;
+}
+
 
 .indicator {
 	font-size: 18px;
@@ -105,4 +116,11 @@ input, button {
 
         .autocomplete-item:hover {
             background: #ddd;
+        }
+				
+        .ui-label { font-size: 18px; margin: 10px 0; }
+				
+				.button-disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
         }

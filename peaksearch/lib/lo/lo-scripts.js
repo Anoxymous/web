@@ -71,7 +71,7 @@ function resizeDivs(event) {
 }
 				
 function toggleToolbar() {
-		var toolbar = event.target.querySelector(".pop-out-toolbar-up");
+		var toolbar = event.target.querySelector(".pop-out-toolbar-up, .pop-out-toolbar-right");
 		if(toolbar != null)
 		{
 			toolbar.style.display = (toolbar.style.display === "none" || toolbar.style.display === "") ? "flex" : "none";

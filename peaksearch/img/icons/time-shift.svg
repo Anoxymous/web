@@ -1,0 +1,17 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Clock Circle -->
+  <circle cx="35" cy="35" r="25" stroke="black" stroke-width="4" fill="none"/>  
+	
+  <!-- Clock Hands -->
+  <line x1="35" y1="35" x2="35" y2="70" stroke="black" stroke-width="3"/> <!-- Hour Hand -->
+  <line x1="35" y1="35" x2="65" y2="35" stroke="black" stroke-width="3"/> <!-- Minute Hand --> 
+	
+	  <path fill="none" stroke="black" stroke-width="4" d="
+		M 50 80
+		l 35 -35
+		
+		m 0  20
+		l 0 -20
+		l -20 0"/>
+	
+</svg>

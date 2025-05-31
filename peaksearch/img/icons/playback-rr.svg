@@ -1,0 +1,15 @@
+<svg width="100" height="100" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fast-Forward Arrows -->
+  <path fill="black" stroke="black" stroke-width="1" d="
+		M 15 25
+		l 10 -20
+		l  0  40
+		z
+		
+		m 10 0
+		l 10 -20
+		l  0  40
+		z
+		
+		"/>
+</svg>

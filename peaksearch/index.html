@@ -1,20 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peak Seach</title>
-    <script async type="text/javascript" src="https://www.peakfinder.com/script/peakfinder.1.0.min.js"></script>
-<!--    <script async type="text/javascript" src="./pf-min.js"></script> -->
-		<script src="https://openlayers.org/en/v4.6.5/build/ol.js" type="text/javascript"></script>
-		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-		<script type="text/javascript" src="lib\ui\ui-scripts.js"></script>
-
-		<link rel="stylesheet" href="lib\lo\lo-styles.css" />
-		<link rel="stylesheet" href="lib\ui\ui-styles.css" />
-		<link rel="stylesheet" href="lib\pf\pf-styles.css" />
-		<link rel="stylesheet" href="lib\om\om-styles.css" />
-</head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Peak Seach</title>
+		<script type="text/javascript" src="lib\ss\ss.js"></script>
+	</head>
 	<body>
 		<div class="container">
 				<div class="bar-logo" id="bar-logo" style="background-image: url('img/ss_logo.svg');"></div>
@@ -29,6 +20,17 @@
 								style="background-image: url('img/icons/map.svg');" >
 							</div>
 							<div
+								id="button-v" 
+								class="bar-button"
+								onclick="toggleToolbar()"
+								style="background-image: url('img/icons/layouts.svg');" >
+								<div class="pop-out-toolbar-right" id="toolbar-views">
+									<div class="bar-button" onclick="toggleView('s')" style="background-image: url('img/icons/layout_s.svg');"></div>
+									<div class="bar-button" onclick="toggleView('h')" style="background-image: url('img/icons/layout_h.svg');"></div>
+									<div class="bar-button" onclick="toggleView('v')" style="background-image: url('img/icons/layout_v.svg');"></div>
+								</div>
+							</div>
+							<div
 								class="bar-button"
 								onclick="toggleTab('contents-info')"
 					    	style="background-image: url('img/icons/info.svg');" >
@@ -38,28 +40,38 @@
 							<div
 								class="bar-button"
 								onclick="toggleTab('locations-form-holder')"
-								style="background-image: url('img/icons/loc.svg');" >
+								style="background-image: url('img/icons/loc-jump.svg');" >
 							</div>
 							<div
 								class="bar-button"
-								onclick="toggleTab('t')"
+								onclick="toggleTab('playback-form-holder')"
 								style="background-image: url('img/icons/date.svg');" >
 							</div>
 							<div
-								id="button-v" 
 								class="bar-button"
-								onclick="toggleToolbar()"
-								style="background-image: url('img/icons/layouts.svg');" >
-								<div class="pop-out-toolbar-up" id="toolbar-views">
-									<div class="bar-button" onclick="toggleView('s')" style="background-image: url('img/icons/layout_s.svg');"></div>
-									<div class="bar-button" onclick="toggleView('h')" style="background-image: url('img/icons/layout_h.svg');"></div>
-									<div class="bar-button" onclick="toggleView('v')" style="background-image: url('img/icons/layout_v.svg');"></div>
-								</div>
+								onclick=""
+								style="background-image: url('img/icons/sun-rise.svg');" >
+							</div>
+							<div
+								class="bar-button"
+								onclick=""
+								style="background-image: url('img/icons/sun-set.svg');" >
+							</div>
+							<div
+								class="bar-button"
+								onclick=""
+								style="background-image: url('img/icons/moon-rise.svg');" >
+							</div>
+							<div
+								class="bar-button"
+								onclick=""
+								style="background-image: url('img/icons/moon-set.svg');" >
 							</div>
 				</div>
 				<div class="contents-floater" id="contents-info">Info</div>
 				
 				<div class="contents-floater" id="locations-form-holder"></div>
+				<div class="contents-floater" id="playback-form-holder"></div>
 				
 				<div class="float-container-s" id="float-container-s">
 					<div class="contents-holder" id="contents-map">
@@ -85,10 +97,5 @@
 				</div>
 				
     </div>
-   
-		<script type="text/javascript" src="lib\om\om-scripts.js"></script>
-		<script type="text/javascript" src="lib\pf\pf-scripts.js"></script>
-		<script type="text/javascript" src="lib\lo\lo-scripts.js"></script>
-	  <script type="text/javascript" src="scripts.js"></script>
 </body>
 </html>

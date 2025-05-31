@@ -72,7 +72,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	height: 100vh;
-	background-color: cyan;
+	background-color: none;
 }
 
 .float-container-v {
@@ -90,7 +90,7 @@ body {
 .floater-top {
 	text-align: center;
 	padding: 0px;
-	background-color: blue;
+	background-color: none;
 	height: 50vh;
 }
 	
@@ -106,13 +106,13 @@ body {
 	text-align: center;
 	padding: 0px;
 	flex: 1; /* Takes up remaining space */
-	background-color: #ddd;
+	background-color: none;
 }
 	
 .floater-left {
 	text-align: center;
 	padding: 0px;
-	background-color: orange;
+	background-color: none;
 	width: 50vw;
 }
 	
@@ -128,7 +128,7 @@ body {
 	text-align: center;
 	padding: 0px;
 	flex: 1; /* Takes up remaining space */
-	background-color: #dd6;
+	background-color: none;
 }
 	
 .pop-out-toolbar-up {
@@ -146,7 +146,7 @@ body {
 	
 .pop-out-toolbar-right {
 	position: absolute;
-	transform: translate(0%, -20px) translate(0%, -50%);
+	transform: translate(20px, 0%) translate(50%, 0%);
 	
 	background: none;
 	padding: 0px;

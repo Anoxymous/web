@@ -1,0 +1,30 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Time Pick Example</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="..\lo\lo-styles.css" />
+		<link rel="stylesheet" href="..\ui\ui-styles.css" />
+		<script type="text/javascript">const ss_base_dir = "../../";</script>
+		<script type="text/javascript" src="ui-scripts.js"></script>
+	</head>
+	<body>
+		<div class="container">
+			<div class="contents-floater" id="time-form-holder"></div>
+		</div>
+		<script>
+		
+			function updateTimeUTC( timeValue )
+			{
+				console.log("Time changed:", timeValue);
+			}
+			
+			createPlaybackForm("time-form-holder", "playback-form", "Jump to Time", updateTimeUTC )
+		
+		</script
+	</body>
+</html>
+

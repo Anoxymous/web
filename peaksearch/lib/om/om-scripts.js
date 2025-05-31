@@ -1,3 +1,10 @@
+function om_init()
+{
+	import_JS("https://openlayers.org/en/v4.6.5/build/ol.js")
+}
+
+
+
 	var map;
     var mapLat = -33.829357;
 		var mapLng = 150.961761;
@@ -54,3 +61,5 @@ function om_updateMapLocation(lat, lon, name)
 		pointFeature.getGeometry().setCoordinates(newCoords2);
     view.setCenter(newCoords2);
 }
+
+om_init()
