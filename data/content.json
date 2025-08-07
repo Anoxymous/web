@@ -1,0 +1,37 @@
+{
+	"sections": [
+
+      {
+         "id": "home",
+         "title": "Home"
+      },
+      {
+         "id": "shop",
+         "title": "Shop"
+      },
+      {
+         "id": "tents",
+         "title": "Roof Top Tents"
+      },
+      {
+         "id": "awnings",
+         "title": "Free-Standing Awnings"
+      },
+      {
+         "id": "gazeebos",
+         "title": "Air-Pole Gazeebo"
+      },
+      {
+         "id": "projects",
+         "title": "Projects"
+      },
+      {
+         "id": "testimonials",
+         "title": "Testimonials"
+      },
+      {
+         "id": "contact",
+         "title": "Contact"
+      }
+   ]
+}
